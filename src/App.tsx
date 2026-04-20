@@ -1,7 +1,8 @@
 import Layout from "./components/Layout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Orders from "./pages/admin/Orders";
-
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 const App = () => {
   return (
     <BrowserRouter>
@@ -11,7 +12,8 @@ const App = () => {
           <Route index element={<div>Dashboard</div>} />
           <Route path="orders" element={<Orders />} />
         </Route>
-
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
     </BrowserRouter>
   );

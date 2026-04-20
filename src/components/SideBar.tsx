@@ -1,6 +1,20 @@
 import { LayoutDashboard, ShoppingCart, Package } from "lucide-react";
 
 const SideBar = ({ open }: { open: boolean }) => {
+  const links = [
+    {
+      icon: <LayoutDashboard/>,
+      name: "Dashboard"
+    }, 
+    {
+      icon: <Package size={18} />,
+      name: "Products"
+    }, 
+    {
+      icon: <ShoppingCart size={18} />,
+      name: "Orders"
+    }
+  ]
   return (
     <aside
       className={`
@@ -12,20 +26,18 @@ const SideBar = ({ open }: { open: boolean }) => {
     `}
     >
       <ul className="p-4 space-y-2 text-gray-700 dark:text-gray-200">
-        <li className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer">
-          <LayoutDashboard size={18} />
-          Dashboard
-        </li>
-
-        <li className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer">
-          <Package size={18} />
-          Products
-        </li>
-
-        <li className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer">
-          <ShoppingCart size={18} />
-          Orders
-        </li>
+        {
+          links.map(navLink => {
+            return (<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer">
+          {
+            navLink.icon
+          }
+          {
+            navLink.name
+          }
+        </li>)
+          })
+        }
       </ul>
     </aside>
   );
