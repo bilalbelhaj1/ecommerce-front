@@ -44,6 +44,7 @@ const Register = () => {
     }
 
     setError(null);
+    // send backend request to register new customer account
     console.log("Register valid data:", result.data);
   };
 
