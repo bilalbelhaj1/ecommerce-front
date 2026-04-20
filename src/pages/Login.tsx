@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import * as z from "zod";
+
+const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8, "Password must be more than 8 characters")
+})
+
+type LoginForm = z.infer<typeof loginSchema>;
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState<LoginForm>({ email: "", password: "" });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });

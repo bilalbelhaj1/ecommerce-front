@@ -3,15 +3,28 @@ import AuthLayout from "./AuthLayout";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { Link } from "react-router-dom";
+import * as z from "zod";
+
+const registerSchema = z.object({
+  firstName: z.string().min(2, "First name is required"),
+  lastName: z.string().min(2, "Last name is required"),
+  email: z.string().email("Invalid email"),
+  address: z.string().min(5, "Address is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type RegisterForm = z.infer<typeof registerSchema>;
 
 const Register = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<RegisterForm>({
     firstName: "",
     lastName: "",
     email: "",
     address: "",
     password: "",
   });
+
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -22,7 +35,16 @@ const Register = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Register:", form);
+
+    const result = registerSchema.safeParse(form);
+
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+      return;
+    }
+
+    setError(null);
+    console.log("Register valid data:", result.data);
   };
 
   return (
@@ -79,17 +101,22 @@ const Register = () => {
           placeholder="••••••••"
         />
 
+        {error && (
+          <p className="text-red-500 text-sm">{error}</p>
+        )}
+
         <Button type="submit">Create Account</Button>
       </form>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 text-center">
-            Already have an Account{" "}
-            <Link
-            to="/login"
-            className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
-            >
-            Sign in
-            </Link>
-        </p>
+
+      <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 text-center">
+        Already have an Account{" "}
+        <Link
+          to="/login"
+          className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+        >
+          Sign in
+        </Link>
+      </p>
     </AuthLayout>
   );
 };
