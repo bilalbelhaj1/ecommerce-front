@@ -1,6 +1,6 @@
-
+import Layout from "./components/Layout";
 const App = () => {
-  return <h1 className="underline">Hello there</h1>
+  return <Layout/>
 }
 
 export default App;
