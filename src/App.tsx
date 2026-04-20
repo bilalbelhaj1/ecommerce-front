@@ -1,9 +1,6 @@
-import { Button } from "./components/ui/button"
-function App() {
-  return <>
-    <h1 className='text-amber-300'>HEllo</h1>
-    <Button>Hello</Button>
-  </>
+
+const App = () => {
+  return <h1 className="underline">Hello there</h1>
 }
 
-export default App
+export default App;
