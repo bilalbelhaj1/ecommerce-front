@@ -1,14 +1,13 @@
-import { type ComponentPropsWithoutRef, type Dispatch, type ReactNode } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 interface SelectProps extends ComponentPropsWithoutRef<'select'>{
-    changeHandler:  Dispatch<React.SetStateAction<string>>;
     children: ReactNode
 }
-const CustomeSelect = ({value, changeHandler, children}: SelectProps) => {
+const CustomeSelect = ({value, onChange, children}: SelectProps) => {
     return (
         <select
             value={value}
-            onChange={(e) => { changeHandler(e.target.value);}}
+            onChange={onChange}
           >
             {
                 children
